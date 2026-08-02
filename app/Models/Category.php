@@ -88,6 +88,18 @@ class Category{
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+    
+    public function findBySlugExceptId($id,$slug){
+        $query = "SELECT * FROM categories WHERE slug=:slug And id != :id";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindValue(":slug",$slug);
+        $stmt->bindValue(":id",$id);
+
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 
 }
 

@@ -1,10 +1,6 @@
     <?php
     session_start();
-    require_once '../../app/Controllers/admin/CategoryController.php';
-        
-    $categorycontroller = new CategoryController();
-    $categorycontroller->storeCategory();
-    $category = $categorycontroller->getCategories();
+    
 
     include('layout/header.php'); 
     ?>

@@ -132,15 +132,16 @@
 //     //       });
 //     //     }
 //     //   },
-(function ($) {
+(function ($) { // ye fnction bante sath hi call hojata he or iske ander $ he mtlb foran jquery start hogai
 
-    $(function () {
+    $(function () { // is function ka kam -> Page Ready Hone ka Wait krna 
 
         $("#js-grid").jsGrid({
          
-            width: "100%",
+            width: "780",
             height: "500px",
 
+            deleting: true,
             editing: true,
             sorting: true,
             paging: true,
@@ -157,9 +158,23 @@
                         url: "ajax/categories.php",
                         dataType: "json"
                     });
+                    
+                },
 
+                updateItem: function (item) {
+                    
+                    return $.ajax({
+                        type: "POST",
+                        url: "ajax/updateCategory.php",
+                        data: item,
+                        dataType: "json",
+                         
+                    }).done(function(responce){
+                        alert(responce.message());
+
+                        $("#js-Grid").jsGrid("loadData");
+                    })
                 }
-
             },
 
             fields: [
@@ -192,11 +207,38 @@
                     name: "status",
                     title: "Status",
                     type: "text"
+                },
+                {
+                    type: "control"
                 }
 
             ]
 
         });
+
+        
+    $("#categoryForm").submit(function (e) {
+        e.preventDefault();
+
+        $.ajax({
+            type: "POST",
+            url: "ajax/store-category.php",
+            data: $(this).serialize(), // ye form se data ke raha he 
+            dataType: "json",
+
+            success: function(response){
+                if (response.success) {
+                    alert(response.message);
+
+                    $("#categoryForm")[0].reset();
+                    $("#js-grid").jsGrid("loadData");
+                }else{
+                    alert(response.message);
+                }
+            }
+        })
+    });
+
 
     });
 

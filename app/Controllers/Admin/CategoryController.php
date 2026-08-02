@@ -14,9 +14,6 @@ class CategoryController{
     }
 
     public function storeCategory(){
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
         
         if ($_SERVER['REQUEST_METHOD'] !=='POST') {
             return;
@@ -27,8 +24,10 @@ class CategoryController{
         $status = trim($_POST['status']);
 
         if (empty($categoryName) || empty($description) || empty($status)) {
-            $_SESSION['error'] = "All Field Are Required";
-            return;
+            return[
+                'success' => false,
+                'message' => "all field are required"
+            ];
         }
         
         $slugName = strtolower($categoryName);
@@ -38,14 +37,15 @@ class CategoryController{
         $resultSlug = $this->category->findBySlug($slug);
 
         if ($resultSlug) {
-            $_SESSION['error'] = "This Category already exists";
-            header("Location: category.php");
-            exit;
+            return [
+                'success' => false,
+                'message' => "This Category already excists "
+            ];
         }
 
         $data = [
-           'category_name' => $categoryName,
-           'slug' => $slug,
+            'category_name' => $categoryName,
+            'slug' => $slug,
             'description' => $description,
             'status' => $status
         ];
@@ -63,6 +63,60 @@ class CategoryController{
                 'message' => "Category creation Failed"
             ];
         }
+    }
+    public function updateCategory(){
+        if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+            return;
+        }
+
+        $id = (int)$_POST['id'];
+        $categoryName = trim($_POST['category_name']);
+        $description = trim($_POST['description']);
+        $status = (int)$_POST['status'];
+
+        if (empty($categoryName) || empty($description) ) {
+            return[
+                'success' => false,
+                'message' => "All Fields Are Required"
+            ];
+        }
+
+        $slug = strtolower($categoryName);
+        $slug = preg_replace("/[^a-z0-9]+/i","-",$slug);
+        $slug = trim($slug,"-");
+
+        $resultslug = $this->category->findBySlugExceptId($id,$slug);
+
+        if ($resultslug) {
+            return [
+                'success' => false,
+                'message' => "This Category Aleready Excists"
+            ];
+        }
+
+        $data = [
+            'id' => $id,
+            'category_name' => $categoryName,
+            'slug' => $slug,
+            'description' => $description,
+            'status' => $status
+
+        ];
+
+        $result = $this->category->updateCategory($data);
+
+        if ($result) {
+            return [
+                'success' => true,
+                'message' => "Data Updated Successfully"
+            ];            
+        }else {
+            return [
+                'success' => false,
+                'message' => "Updated  Failed"
+            ];
+        }
+
     }
 
     public function getCategories(){
