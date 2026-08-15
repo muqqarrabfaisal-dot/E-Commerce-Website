@@ -119,6 +119,37 @@ class CategoryController{
 
     }
 
+    public function deleteCategory(){
+        if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+            return;
+        }
+
+        if (!isset($_POST['id'])) {
+            return[
+                'success' => false,
+                'message' => 'invailed request'
+            ];
+        }
+
+        $id = (int)$_POST['id'];
+
+        $result = $this->category->deleteCategory($id);
+
+        
+        if ($result) {
+            return [
+                'success' => true,
+                'message' => "Data Deleted Successfully"
+            ];            
+        }else {
+            return [
+                'success' => false,
+                'message' => "Deleted  Failed"
+            ];
+        }
+
+    }
+
     public function getCategories(){
         $result = $this->category->findAll();
         return $result;

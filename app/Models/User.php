@@ -6,6 +6,9 @@ class User{
     {
         $this->conn = $db;
     }
+            // ===========================
+            // Authentication
+            // ===========================
 
     public function findByEmail($email){
 
@@ -44,6 +47,86 @@ class User{
         $query = "SELECT * FROM users WHERE phone = :phone";
         $stmt = $this->conn->prepare($query);
         $stmt->bindparam(":phone", $phone);
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+            // ===========================
+            // Admin CRUD
+            // ===========================
+
+    public function findAll(){
+        $query = "SELECT * FROM users ORDER BY id DESC";
+
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function findById($id){
+        $query = "SELECT * FROM users WHERE id = :id";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindValue(":id",$id);
+        $stmt->execute();
+        
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function updateUser($data){
+        
+            $query = "UPDATE users SET first_name=:first_name, last_name = :last_name, email = :email, phone = :phone WHERE id = :id";
+            
+            $stmt = $this->conn->prepare($query);
+
+            $stmt->bindValue(':id', $data['id']);
+            $stmt->bindValue(':first_name', $data['first_name']);
+            $stmt->bindValue(':last_name', $data['last_name']);
+            $stmt->bindValue(':email', $data['email']);
+            $stmt->bindValue(':phone', $data['phone']);
+
+            $stmt->execute();
+
+            return $stmt->rowCount() > 0;
+            
+    }
+
+    public function deleteUser($id){
+        $query = "DELETE FROM users WHERE id = :id";
+
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->bindValue(":id",$id);
+
+        $stmt->execute();
+
+        return $stmt->rowCount() > 0;
+    }
+
+    public function findByEmailExceptId($id,$email){
+        $query = "SELECT * FROM users WHERE id!=:id AND email=:email";//ye id!=:id k barey me hn Jis user ko update kar raha hoon usko ignore karo. Sirf baaki users me check karo.
+
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->bindValue(":id",$id);
+        $stmt->bindValue(":email",$email);
+
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function findByPhoneExceptId($id,$phone){
+        $query = "SELECT * FROM users WHERE id!=:id AND phone=:phone";//ye id!=:id k barey me hn Jis user ko update kar raha hoon usko ignore karo. Sirf baaki users me check karo.
+
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->bindValue(":id",$id);
+        $stmt->bindValue(":phone",$phone);
+
         $stmt->execute();
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
