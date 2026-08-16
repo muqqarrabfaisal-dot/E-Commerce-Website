@@ -170,6 +170,27 @@ class Product{
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function findRelatedProduct($category_Id,$product_Id){
+        $query = "SELECT products.* , categories.category_name
+        FROM products
+        JOIN categories
+        ON categories.id = products.category_id
+        WHERE products.category_id = :category_id
+        AND products.id != :product_id
+        AND products.status = :status
+        ORDER BY products.id DESC
+        LIMIT 4";
+
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->bindValue(":category_id",$category_Id);
+        $stmt->bindValue(":product_id",$product_Id);
+        $stmt->bindValue(":status",1);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 
 }
 

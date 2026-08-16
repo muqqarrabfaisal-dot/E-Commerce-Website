@@ -1,4 +1,27 @@
-<?php include("layout/header.php"); ?>
+<?php 
+
+	require_once '../../app/Controllers/Web/ProductController.php';
+
+	$productontrol = new ProductController();
+
+	$id = $_GET['id'] ?? null;
+
+	if (!$id || !is_numeric($id)) {
+		header("Location: index.php");
+		exit;
+	}
+	$product = $productontrol->show($id);
+
+	if (!$product) {
+		header("Location: index.php");
+		exit;
+	}
+
+	$related = $productontrol->related($product['category_id'],$product['id']);
+
+	include("layout/header.php");
+
+?>
 	<!-- BREADCRUMB -->
 	<div id="breadcrumb" class="section">
 		<!-- container -->
@@ -10,8 +33,8 @@
 						<li><a href="index.php">Home</a></li>
 						<li><a href="#">All Categories</a></li>
 						<li><a href="store.php">Products</a></li>
-						<li><a href="#">Headphones</a></li>
-						<li class="active">Product name goes here</li>
+						<li><a href="#"><?php echo htmlspecialchars($product['category_name'] ?? 'Category');?></a></li>
+						<li class="active"><?php echo htmlspecialchars($product['product_name']);?></li>
 					</ul>
 				</div>
 			</div>
@@ -28,53 +51,22 @@
 			<!-- row -->
 			<div class="row">
 				<!-- Product main img -->
-				<div class="col-md-5 col-md-push-2">
+				<div class="col-md-5 ">
 					<div id="product-main-img">
 						<div class="product-preview">
-							<img src="assets/img/product01.png" alt="">
-						</div>
-
-						<div class="product-preview">
-							<img src="assets/img/product03.png" alt="">
-						</div>
-
-						<div class="product-preview">
-							<img src="assets/img/product06.png" alt="">
-						</div>
-
-						<div class="product-preview">
-							<img src="assets/img/product08.png" alt="">
+							<img src="<?php echo '../uploads/products/' . htmlspecialchars($product['image']);?>"
+							alt="<?php echo htmlspecialchars($product['product_name']);?>">
 						</div>
 					</div>
 				</div>
 				<!-- /Product main img -->
 
-				<!-- Product thumb imgs -->
-				<div class="col-md-2  col-md-pull-5">
-					<div id="product-imgs">
-						<div class="product-preview">
-							<img src="assets/img/product01.png" alt="">
-						</div>
-
-						<div class="product-preview">
-							<img src="assets/img/product03.png" alt="">
-						</div>
-
-						<div class="product-preview">
-							<img src="assets/img/product06.png" alt="">
-						</div>
-
-						<div class="product-preview">
-							<img src="assets/img/product08.png" alt="">
-						</div>
-					</div>
-				</div>
 				<!-- /Product thumb imgs -->
 
 				<!-- Product details -->
 				<div class="col-md-5">
 					<div class="product-details">
-						<h2 class="product-name">product name goes here</h2>
+						<h2 class="product-name"><?php echo htmlspecialchars($product['product_name']);?></h2>
 						<div>
 							<div class="product-rating">
 								<i class="fa fa-star"></i>
@@ -86,14 +78,17 @@
 							<a class="review-link" href="#">10 Review(s) | Add your review</a>
 						</div>
 						<div>
-							<h3 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h3>
-							<span class="product-available">In Stock</span>
+							<h3 class="product-price">$<?php echo htmlspecialchars($product['price']);?>
+								<?php if ((int)$product['quantity'] > 0) : ?>
+									<span class="product-available">In Stock</span>
+								<?php else:?>
+									<span class="product-available"> Out Of Stock </span>
+								<?php endif; ?>
+							</h3>
 						</div>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-							labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-							laboris nisi ut aliquip ex ea commodo consequat.</p>
+						<p><?php echo htmlspecialchars($product['description']); ?></p>
 
-						<div class="product-options">
+						<!-- <div class="product-options">
 							<label>
 								Size
 								<select class="input-select">
@@ -106,7 +101,7 @@
 									<option value="0">Red</option>
 								</select>
 							</label>
-						</div>
+						</div> -->
 
 						<div class="add-to-cart">
 							<div class="qty-label">
@@ -387,155 +382,106 @@
 	</div>
 	<!-- /SECTION -->
 
-	<!-- Section -->
-	<div class="section">
-		<!-- container -->
-		<div class="container">
-			<!-- row -->
-			<div class="row">
+	
+<!-- Section -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
 
-				<div class="col-md-12">
-					<div class="section-title text-center">
-						<h3 class="title">Related Products</h3>
-					</div>
-				</div>
+            <!-- Section Title -->
+            <div class="col-md-12">
+                <div class="section-title text-center">
+                    <h3 class="title">Related Products</h3>
+                </div>
+            </div>
 
-				<!-- product -->
-				<div class="col-md-3 col-xs-6">
-					<div class="product">
-						<div class="product-img">
-							<img src="assets/img/product01.png" alt="">
-							<div class="product-label">
-								<span class="sale">-30%</span>
-							</div>
-						</div>
-						<div class="product-body">
-							<p class="product-category">Category</p>
-							<h3 class="product-name"><a href="detail.php">product name goes here</a></h3>
-							<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-							<div class="product-rating">
-							</div>
-							<div class="product-btns">
-								<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add
-										to wishlist</span></button>
-								<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add
-										to compare</span></button>
-								<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick
-										view</span></button>
-							</div>
-						</div>
-						<div class="add-to-cart">
-							<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-						</div>
-					</div>
-				</div>
-				<!-- /product -->
+            <!-- Related Products -->
+            <?php foreach ($related as $item): ?>
 
-				<!-- product -->
-				<div class="col-md-3 col-xs-6">
-					<div class="product">
-						<div class="product-img">
-							<img src="assets/img/product02.png" alt="">
-							<div class="product-label">
-								<span class="new">NEW</span>
-							</div>
-						</div>
-						<div class="product-body">
-							<p class="product-category">Category</p>
-							<h3 class="product-name"><a href="detail.php">product name goes here</a></h3>
-							<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-							<div class="product-rating">
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-							</div>
-							<div class="product-btns">
-								<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add
-										to wishlist</span></button>
-								<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add
-										to compare</span></button>
-								<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick
-										view</span></button>
-							</div>
-						</div>
-						<div class="add-to-cart">
-							<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-						</div>
-					</div>
-				</div>
-				<!-- /product -->
+                <div class="col-md-3 col-xs-6">
+                    <div class="product">
 
-				<div class="clearfix visible-sm visible-xs"></div>
+                        <!-- Product Image -->
+                        <div class="product-img">
+                            <img
+                                src="<?php echo '../uploads/products/' . htmlspecialchars($item['image']); ?>"
+                                alt="<?php echo htmlspecialchars($item['product_name']); ?>"
+                            >
+                        </div>
 
-				<!-- product -->
-				<div class="col-md-3 col-xs-6">
-					<div class="product">
-						<div class="product-img">
-							<img src="assets/img/product03.png" alt="">
-						</div>
-						<div class="product-body">
-							<p class="product-category">Category</p>
-							<h3 class="product-name"><a href="detail.php">product name goes here</a></h3>
-							<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-							<div class="product-rating">
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star-o"></i>
-							</div>
-							<div class="product-btns">
-								<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add
-										to wishlist</span></button>
-								<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add
-										to compare</span></button>
-								<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick
-										view</span></button>
-							</div>
-						</div>
-						<div class="add-to-cart">
-							<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-						</div>
-					</div>
-				</div>
-				<!-- /product -->
+                        <!-- Product Body -->
+                        <div class="product-body">
 
-				<!-- product -->
-				<div class="col-md-3 col-xs-6">
-					<div class="product">
-						<div class="product-img">
-							<img src="assets/img/product04.png" alt="">
-						</div>
-						<div class="product-body">
-							<p class="product-category">Category</p>
-							<h3 class="product-name"><a href="detail.php">product name goes here</a></h3>
-							<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-							<div class="product-rating">
-							</div>
-							<div class="product-btns">
-								<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add
-										to wishlist</span></button>
-								<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add
-										to compare</span></button>
-								<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick
-										view</span></button>
-							</div>
-						</div>
-						<div class="add-to-cart">
-							<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-						</div>
-					</div>
-				</div>
-				<!-- /product -->
+                            <p class="product-category">
+                                <?php echo htmlspecialchars($item['category_name']); ?>
+                            </p>
 
-			</div>
-			<!-- /row -->
-		</div>
-		<!-- /container -->
-	</div>
-	<!-- /Section -->
+                            <h3 class="product-name">
+                                <a href="detail.php?id=<?php echo $item['id']; ?>">
+                                    <?php echo htmlspecialchars($item['product_name']); ?>
+                                </a>
+                            </h3>
+
+                            <h4 class="product-price">
+                                $<?php echo htmlspecialchars($item['price']); ?>
+                            </h4>
+
+                            <div class="product-rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star-o"></i>
+                            </div>
+
+                            <div class="product-btns">
+
+                                <button class="add-to-wishlist">
+                                    <i class="fa fa-heart-o"></i>
+                                    <span class="tooltipp">
+                                        add to wishlist
+                                    </span>
+                                </button>
+
+                                <button class="add-to-compare">
+                                    <i class="fa fa-exchange"></i>
+                                    <span class="tooltipp">
+                                        add to compare
+                                    </span>
+                                </button>
+
+                                <button class="quick-view">
+                                    <i class="fa fa-eye"></i>
+                                    <span class="tooltipp">
+                                        quick view
+                                    </span>
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                        <!-- Add To Cart -->
+                        <div class="add-to-cart">
+                            <button class="add-to-cart-btn">
+                                <i class="fa fa-shopping-cart"></i>
+                                add to cart
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+
+            <?php endforeach; ?>
+
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /Section -->
 
 	<!-- /NEWSLETTER -->
 <?php include("layout/footer.php"); ?>

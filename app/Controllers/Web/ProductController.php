@@ -24,6 +24,10 @@ class ProductController{
     public function showBySlug($slug){
         return $this->product->findBySlug($slug);
     }
+
+    public function related($categoryId,$productId){
+        return $this->product->findRelatedProduct($categoryId,$productId);
+    } 
 }
 
 
