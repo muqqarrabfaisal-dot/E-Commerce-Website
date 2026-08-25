@@ -28,6 +28,9 @@ class ProductController{
     public function related($categoryId,$productId){
         return $this->product->findRelatedProduct($categoryId,$productId);
     } 
+    public function cartProducts($ids){
+        return $this->product->findByIds($ids);
+    }
 }
 
 

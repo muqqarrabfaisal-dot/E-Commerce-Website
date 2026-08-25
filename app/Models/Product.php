@@ -192,6 +192,25 @@ class Product{
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function findByIds($ids){
+        if (empty($ids)) {
+            return [];
+        }
+
+        $placeholders = implode(",",array_fill(0, count($ids), "?"));
+
+        $query = "SELECT products.*, categories.category_name
+        FROM products
+        JOIN categories
+        ON categories.id = products.category_id
+        WHERE products.id IN ($placeholders)
+        AND products.status = 1";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute($ids);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 
 

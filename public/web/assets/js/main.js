@@ -119,10 +119,14 @@
 
 		up.on('click', function () {
 			var value = parseInt($input.val()) + 1;
-			$input.val(value);
-			$input.change();
-			updatePriceSlider($this , value)
-		})
+			var max   = parseInt($input.attr('max'));
+
+			if (value <= max) {
+				$input.val(value);
+				$input.change();
+				updatePriceSlider($this , value);	
+			}
+		});
 	});
 
 	var priceInputMax = document.getElementById('price-max'),
