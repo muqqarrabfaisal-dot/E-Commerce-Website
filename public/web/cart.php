@@ -290,44 +290,6 @@ $products = $productcontroller->cartProducts($ids);
                 </div>
 
 
-
-
-
-
-                
-    <!-- YAHAN CART SUMMARY -->
-    <div class="cart-summary">
-
-        <h3>Cart Summary</h3>
-
-        <div class="summary-row">
-            <span>Subtotal</span>
-            <strong>
-                $<?php echo number_format($grandTotal, 2); ?>
-            </strong>
-        </div>
-
-        <div class="summary-row">
-            <span>Shipping</span>
-            <strong>FREE</strong>
-        </div>
-
-        <hr>
-
-        <div class="summary-row total">
-            <span>Total</span>
-            <strong>
-                $<?php echo number_format($grandTotal, 2); ?>
-            </strong>
-        </div>
-
-        <a href="checkout.php" class="primary-btn">
-            Proceed to Checkout
-        </a>
-
-    </div>
-
-
             <?php endif; ?>
             <!-- /CART SUMMARY -->
 
