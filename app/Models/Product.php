@@ -211,6 +211,18 @@ class Product{
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    public function decreaseQuantity($id,$quantity){
+        $query = "UPDATE products SET quantity = quantity - :quantity WHERE id = :id AND quantity >= :quantity";
+
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->bindValue(":id",$id);
+        $stmt->bindValue(":quantity",$quantity);
+
+        $stmt->execute();
+
+        return $stmt->rowCount() > 0;
+    }
 }
 
 

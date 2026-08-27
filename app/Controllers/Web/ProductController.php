@@ -31,6 +31,9 @@ class ProductController{
     public function cartProducts($ids){
         return $this->product->findByIds($ids);
     }
+    public function decreaseQuantity($id,$quantity){
+        return $this->product->decreaseQuantity($id,$quantity);
+    }
 }
 
 
