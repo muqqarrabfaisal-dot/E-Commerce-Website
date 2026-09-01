@@ -56,16 +56,63 @@ public function createOrderItem($data)
 
     return $stmt->rowCount() > 0;
 }
+public function findByUserId($userId){
+    $query = "SELECT * FROM orders WHERE user_id = :user_id ORDER BY id DESC";
 
+    $stmt = $this->conn->prepare($query);
 
+    $stmt->bindValue(":user_id",$userId);
 
+    $stmt->execute();
 
-
-
-
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+public function findOrderItems($orderId){
+    $query = "SELECT * FROM order_items WHERE order_id = :order_id";
 
+    $stmt = $this->conn->prepare($query);
 
+    $stmt->bindValue(":order_id",$orderId);
 
+    $stmt->execute();
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+public function findOrderByIdAndserId($orderId,$userId){
+    $query = "SELECT * FROM orders WHERE id = :order_id AND user_id = :user_id";
+
+    $stmt = $this->conn->prepare($query);
+
+    $stmt->bindValue(":order_id",$orderId);
+    $stmt->bindValue(":user_id",$userId);
+
+    $stmt->execute();
+
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+public function findAll(){
+    $query = "SELECT * FROM orders ORDER BY id DESC";
+
+    $stmt = $this->conn->prepare($query);
+
+    $stmt->execute();
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+public function updateOrderStatus($orderId, $status){
+    $query = "UPDATE orders 
+              SET status = :status 
+              WHERE id = :order_id";
+
+    $stmt = $this->conn->prepare($query);
+
+    $stmt->bindValue(":status", $status);
+    $stmt->bindValue(":order_id", $orderId);
+
+    $stmt->execute();
+
+    return $stmt->rowCount() > 0;
+}
+}
 
 ?>

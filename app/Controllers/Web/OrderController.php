@@ -45,6 +45,15 @@ class OrderController{
 
         return $orderId;
     }
+    public function myOrders($userId){
+        return $this->order->findByUserId($userId);
+    }
+    public function orderItems($order_id){
+        return $this->order->findOrderItems($order_id);
+    }
+    public function getOrderByUser($orderId,$userId){
+        return $this->order->findOrderByIdAndserId($orderId,$userId);
+    }
 
 
 }
