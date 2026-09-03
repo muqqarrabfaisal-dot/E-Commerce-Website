@@ -1,13 +1,11 @@
 <?php
-session_start();
 
+require_once '../../app/Middleware/AuthMiddleware.php';
 require_once '../../app/Controllers/Web/OrderController.php';
 
-// Check user login
-if (!isset($_SESSION['id'])) {
-    header("Location: login.php");
-    exit;
-}
+$auth = new AuthMiddleware();
+$auth->handle();
+
 $userId = $_SESSION['id'];
 
 $ordercontroller = new OrderController();

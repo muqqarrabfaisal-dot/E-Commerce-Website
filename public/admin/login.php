@@ -4,7 +4,7 @@ require_once '../../app/Controllers/Web/AuthController.php';
 require_once '../../app/Middleware/GuestMiddleware.php';
 
 $guest = new GuestMiddleware();
-$guest->handle();
+$guest->handle(1,'index.php');
 
 $auth = new AuthController();
 $auth->login();

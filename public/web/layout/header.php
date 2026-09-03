@@ -86,7 +86,7 @@
 						<!-- LOGO -->
 						<div class="col-md-3">
 							<div class="header-logo">
-								<a href="assets/#" class="logo">
+								<a href="index.php" class="logo">
 									<img src="assets/img/logo.png" alt="">
 								</a>
 							</div>
@@ -160,7 +160,7 @@
 											<h5>SUBTOTAL: $2940.00</h5>
 										</div>
 										<div class="cart-btns">
-											<a href="assets/#">View Cart</a>
+											<a href="cart.php">View Cart</a>
 											<a href="checkout.php">Checkout <i class="fa fa-arrow-circle-right"></i></a>
 										</div>
 									</div>
@@ -196,11 +196,11 @@
 					<!-- NAV -->
 					<ul class="main-nav nav navbar-nav">
 						<li class="active"><a href="index.php">Home</a></li>
-						<li><a href="assets/#">Hot Deals</a></li>
-						<li><a href="assets/#">Categories</a></li>
-						<li><a href="assets/#">Laptops</a></li>
-						<li><a href="assets/#">Smartphones</a></li>
-						<li><a href="assets/#">Cameras</a></li>
+						<li><a href="index.php#hot-deal">Hot Deals</a></li>
+						<li><a href="product.php">Categories</a></li>
+						<li><a href="product.php">Laptops</a></li>
+						<li><a href="product.php">Smartphones</a></li>
+						<li><a href="product.php">Cameras</a></li>
 						<li><a href="detail.php">Products</a></li>
 					</ul>
 					<!-- /NAV -->

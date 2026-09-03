@@ -1,10 +1,14 @@
 <?php
 
 require_once __DIR__ . '/../../app/Controllers/Web/AuthController.php';
+require_once '../../app/Middleware/GuestMiddleware.php';
 
 $authController = new AuthController();
 
 $authController->login();
+
+$guestmiddleware = new GuestMiddleware();
+$guestmiddleware->handle(2,'index.php');
 ?>
 
 

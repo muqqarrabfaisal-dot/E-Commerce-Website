@@ -22,7 +22,9 @@
 						</div>
 						<div class="shop-body">
 							<h3>Laptop<br>Collection</h3>
-							<a href="#" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+							<a href="product.php" class="cta-btn">
+								Shop now <i class="fa fa-arrow-circle-right"></i>
+							</a>
 						</div>
 					</div>
 				</div>
@@ -36,7 +38,9 @@
 						</div>
 						<div class="shop-body">
 							<h3>Accessories<br>Collection</h3>
-							<a href="#" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+							<a href="product.php" class="cta-btn">
+								Shop now <i class="fa fa-arrow-circle-right"></i>
+							</a>
 						</div>
 					</div>
 				</div>
@@ -50,7 +54,9 @@
 						</div>
 						<div class="shop-body">
 							<h3>Cameras<br>Collection</h3>
-							<a href="#" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+							<a href="product.php" class="cta-btn">
+								Shop now <i class="fa fa-arrow-circle-right"></i>
+							</a>
 						</div>
 					</div>
 				</div>
@@ -217,7 +223,9 @@
 						</ul>
 						<h2 class="text-uppercase">hot deal this week</h2>
 						<p>New Collection Up to 50% OFF</p>
-						<a class="primary-btn cta-btn" href="#">Shop now</a>
+						<a class="primary-btn cta-btn" href="product.php">
+							Shop now
+						</a>
 					</div>
 				</div>
 			</div>

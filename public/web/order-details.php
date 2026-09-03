@@ -1,13 +1,9 @@
 <?php
-
-session_start();
-
+require_once '../../app/Middleware/AuthMiddleware.php';
 require_once '../../app/Controllers/Web/OrderController.php';
 
-if (!isset($_SESSION['id'])) {
-    header("Location: login.php");
-    exit;
-}
+$auth = new AuthMiddleware();
+$auth->handle();
 
 if (!isset($_GET['id'])) {
     header("Location: my-orders.php");

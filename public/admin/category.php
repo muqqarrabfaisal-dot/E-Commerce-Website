@@ -1,9 +1,17 @@
-    <?php
-    session_start();
-    
+<?php
 
-    include('layout/header.php'); 
-    ?>
+require_once '../../app/Middleware/AuthMiddleware.php';
+require_once '../../app/Middleware/RoleMiddleware.php';
+
+$auth = new AuthMiddleware();
+$auth->handle();
+
+$role = new RoleMiddleware();
+$role->handle(1);
+
+include('layout/header.php');
+
+?>
 
 
       <!-- CATEGORY FORM -->

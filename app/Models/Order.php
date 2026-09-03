@@ -78,7 +78,7 @@ public function findOrderItems($orderId){
 
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
-public function findOrderByIdAndserId($orderId,$userId){
+public function findOrderByIdAndUserId($orderId,$userId){
     $query = "SELECT * FROM orders WHERE id = :order_id AND user_id = :user_id";
 
     $stmt = $this->conn->prepare($query);
@@ -98,6 +98,18 @@ public function findAll(){
     $stmt->execute();
 
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+public function findById($orderId){
+
+    $query = "SELECT * FROM orders WHERE id = :order_id";
+
+    $stmt = $this->conn->prepare($query);
+
+    $stmt->bindValue(":order_id", $orderId);
+
+    $stmt->execute();
+
+    return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 public function updateOrderStatus($orderId, $status){
     $query = "UPDATE orders 

@@ -10,6 +10,20 @@
 
 <!-- Mirrored from demo.bootstrapdash.com/star-admin2-free/dist/assets/vertical-default-light/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 25 Mar 2026 13:11:07 GMT -->
 <head>
+
+
+
+<script>
+window.addEventListener("pageshow", function (event) {
+    if (event.persisted) {
+        window.location.reload();
+    }
+});
+</script>
+
+
+
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.2.96/css/materialdesignicons.min.css">
   <!-- Required meta tags -->
@@ -433,55 +447,67 @@
 </div>
       <!-- partial -->
       <!-- partial:partials/_sidebar.html -->
-      <nav class="sidebar sidebar-offcanvas" id="sidebar">
-  <ul class="nav">
-    <li class="nav-item">
-      <a class="nav-link" data-bs-toggle="collapse" href="#dashboards" aria-expanded="false" aria-controls="dashboards">
-        <i class="mdi mdi-grid-large menu-icon position-relative">
-        </i>
-        <span class="menu-title">Dashboard</span>
-        <i class="menu-arrow"></i>
-      </a>
-      <div class="collapse" id="dashboards">
-        <ul class="nav flex-column sub-menu"></ul>
-      </div>
-    </li>
+     <nav class="sidebar sidebar-offcanvas" id="sidebar">
 
-        <li class="nav-item">
-      <a class="nav-link" data-bs-toggle="collapse" href="#dashboards" aria-expanded="false" aria-controls="dashboards">
-        <i class="mdi mdi-grid-large menu-icon position-relative">
-        </i>
-        <span class="menu-title">User</span>
-        <i class="menu-arrow"></i>
-      </a>
-      <div class="collapse" id="user">
-        <ul class="nav flex-column sub-menu"></ul>
-      </div>
-    </li>
+    <ul class="nav">
 
+        <!-- Dashboard -->
         <li class="nav-item">
-      <a class="nav-link" data-bs-toggle="collapse" href="#dashboards" aria-expanded="false" aria-controls="dashboards">
-        <i class="mdi mdi-grid-large menu-icon position-relative">
-        </i>
-        <span class="menu-title">Prodect</span>
-        <i class="menu-arrow"></i>
-      </a>
-      <div class="collapse" id="prodect">
-        <ul class="nav flex-column sub-menu"></ul>
-      </div>
-    </li>
+            <a class="nav-link" href="index.php">
 
+                <i class="mdi mdi-grid-large menu-icon position-relative"></i>
+
+                <span class="menu-title">Dashboard</span>
+
+            </a>
+        </li>
+
+
+        <!-- Users -->
         <li class="nav-item">
-      <a class="nav-link" data-bs-toggle="collapse" href="#dashboards" aria-expanded="false" aria-controls="dashboards">
-        <i class="mdi mdi-grid-large menu-icon position-relative">
-        </i>
-        <span class="menu-title">Order</span>
-        <i class="menu-arrow"></i>
-      </a>
-      <div class="collapse" id="order">
-        <ul class="nav flex-column sub-menu"></ul>
-      </div>
-    </li>
-  </ul>
- 
+            <a class="nav-link" href="user.php">
+
+                <i class="mdi mdi-account menu-icon position-relative"></i>
+
+                <span class="menu-title">Users</span>
+
+            </a>
+        </li>
+
+        <!-- Categories -->
+        <li class="nav-item">
+            <a class="nav-link" href="category.php">
+
+                <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+
+                <span class="menu-title">Categories</span>
+                
+            </a>
+        </li>
+
+        <!-- Products -->
+        <li class="nav-item">
+            <a class="nav-link" href="product.php">
+
+                <i class="mdi mdi-package-variant menu-icon position-relative"></i>
+
+                <span class="menu-title">Products</span>
+
+            </a>
+        </li>
+
+
+        <!-- Orders -->
+        <li class="nav-item">
+            <a class="nav-link" href="order.php">
+
+                <i class="mdi mdi-cart menu-icon position-relative"></i>
+
+                <span class="menu-title">Orders</span>
+
+            </a>
+        </li>
+
+    </ul>
+
 </nav>

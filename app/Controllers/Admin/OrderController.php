@@ -16,8 +16,17 @@ class OrderController{
     public function findAll(){
         return $this->order->findAll();
     }
+    
     public function updateOrderStatus($orderId, $status){
         return $this->order->updateOrderStatus($orderId, $status);
+    }
+
+    public function findById($orderId){
+        return $this->order->findById($orderId);
+    }
+
+    public function findOrderItems($orderId){
+        return $this->order->findOrderItems($orderId);
     }
 }
 

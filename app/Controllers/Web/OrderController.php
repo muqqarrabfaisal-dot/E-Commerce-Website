@@ -52,7 +52,7 @@ class OrderController{
         return $this->order->findOrderItems($order_id);
     }
     public function getOrderByUser($orderId,$userId){
-        return $this->order->findOrderByIdAndserId($orderId,$userId);
+        return $this->order->findOrderByIdAndUserId($orderId,$userId);
     }
 
 

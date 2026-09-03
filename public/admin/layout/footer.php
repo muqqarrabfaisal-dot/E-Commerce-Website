@@ -43,6 +43,7 @@
   <script src="config/js/categories-grid.js"></script>
   <script src="config/js/user-grid.js"></script>
   <script src="config/js/order-grid.js"></script>
+  <script src="config/js/order-detail-grid.js"></script>
 
   <!-- <script src="assets/js/db.js"></script> -->
   <!-- End custom js for this page-->

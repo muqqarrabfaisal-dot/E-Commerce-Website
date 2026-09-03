@@ -139,14 +139,14 @@
                     itemTemplate: function(value,item){
 
                         var btn = $("<button>")
-                        .text("View")
-                        .addClass("btn btn-primary btn-sm");
+                        btn.text("View")
+                        btn.addClass("btn btn-primary btn-sm");
 
-                    button.on("click",function(){
+                    btn.on("click",function(){
                         window.location.href = "order-detail.php?id=" + item.id;
                     });
 
-                    return button;
+                    return btn;
                     }
                 }
             ]

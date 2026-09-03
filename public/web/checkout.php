@@ -1,9 +1,11 @@
 <?php
 
-session_start();
-
+require_once '../../app/Middleware/AuthMiddleware.php';
 require_once '../../app/Controllers/Web/ProductController.php';
 require_once '../../app/Controllers/Web/OrderController.php';
+
+$auth = new AuthMiddleware();
+$auth->handle();
 
 $cart = $_SESSION['cart'] ?? [];
 

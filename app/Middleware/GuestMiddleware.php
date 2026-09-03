@@ -2,22 +2,15 @@
 
 class GuestMiddleware{
 
-    public function handle(){
+    public function handle($roleid,$redirect){
 
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
 
-        if (isset($_SESSION['id'])) {
-            
-        if ($_SESSION['role_id'] == 1) {
-            header("Location: index.php");
+        if (isset($_SESSION['id']) && $_SESSION['role_id'] == $roleid) {
+            header("Location: $redirect");
             exit;
-        }
-        if ($_SESSION['role_id'] == 2) {
-            header("Location: index.php");
-            exit;
-        }
         }
 
     }
